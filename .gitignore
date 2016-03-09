@@ -56,3 +56,8 @@ db/
 *.old
 *.php.old
 info.php
+*.phpproj
+*.sln
+*.suo
+*.user
+assets

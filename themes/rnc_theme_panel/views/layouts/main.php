@@ -68,16 +68,17 @@
 				'type' => 'pills',
 				'stacked'=>false,
 				'items' => array(
-					array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas')),
-					array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
-					array('label' => 'Ley 1753 de 2015', 'url' => array('site/ley')),
-					array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
-					array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
-					array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
+                    //array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas')),
+                    //array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
+                    //array('label' => 'Directorio de Especialistas', 'url' => array('Curador/Especialista')),
+                    //array('label' => 'Ley 1753 de 2015', 'url' => array('site/ley')),
+                    //array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
+                    //array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
+                    //array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
 					array('label' => 'Ingresar', 'url' => array('admin/index')),
 				)
 			));
-			?>
+            ?>
 	</header> <!-- Fin header -->
 
 		<div id="container">
@@ -204,23 +205,26 @@
 
 			</div>
 		</div>
+	
 	<footer>
 		<section>
-			<div>
+			<div style="
+    background-color: #868685; width:100% ">
 			<?php 
-				$this->widget('bootstrap.widgets.TbMenu', array(
-					'type' => 'pills',
-					'stacked'=>false,
-					'items' => array(
-						array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
-						array('label' => 'Ingresar', 'url' => array('admin/index')),
-						array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
-						array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
-						array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
-						array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas'))
-					)
-				));
-			?>
+            $this->widget('bootstrap.widgets.TbMenu', array(
+                'type' => 'pills',
+                'stacked'=>false,
+                'items' => array(
+                    array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
+                    array('label' => 'Ingresar', 'url' => array('admin/index')),
+                    array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
+                    array('label' => 'Directorio de Especialistas', 'url' => array('Curador/Especialista')),
+                    array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
+                    array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
+                    array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas'))
+                )
+            ));
+            ?>
 			</div>
 
 			<div class="doscol clearfix">
