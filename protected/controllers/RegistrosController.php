@@ -23,7 +23,7 @@ class RegistrosController extends Controller{
 	
 		return array(
 				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view'),
+						'actions'=>array('index','view', 'coleccionesJson'),
 						'users'=>array('@'),
 						'roles'=>array('admin,entidad'),
 				),
@@ -1971,6 +1971,64 @@ class RegistrosController extends Controller{
 		));
 	}
 	
+	public function actionColeccionesJson(){
+		
+		$datos = array();
+		$model = Registros_update::model();				
+		
+		$criteria=new CDbCriteria;
+		$criteria->compare('t.estado', 2);
+		$criteria->with = array('registros','county','contactos','urls_registros');
+		
+		$dataRegitros = $model->findAll($criteria);
+			
+		foreach ($dataRegitros as $registro){
+			$link_detail = '<a class="btn btn-success" href="'.Yii::app()->createUrl("registros/detail", array("id"=>$registro->id)).'" role="button">Detalle</a>';
+			$datos[] = array($registro->registros->numero_registro.$this->getUrlColection($registro->urls_registros),$registro->registros->entidad->titular,$registro->nombre,$registro->acronimo,$registro->county->department->department_name,$registro->county->county_name,date_format(date_create($registro->fecha_act), "Y-m-d"),$registro->contactos->nombre,$link_detail);
+		}			
+			
+		header('Content-type: application/json; charset=utf-8');
+		header('Vary: Accept-Encoding');
+			
+		echo $_GET['jsoncallback']."(".CJSON::encode($dataRegitros).")";
+
+		
+	}	
+	public function actionColeccionesJsonFiltered($grupoTaxonomico){
+		
+		$datos = array();
+		$model = Registros_update::model();				
+		
+		if ($grupoTaxonomico == "vertebrados")
+		{
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 4";	
+		}else if ($grupoTaxonomico == "invertebrados"){
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 3";	
+		}else if ($grupoTaxonomico == "microorganismos"){
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 2";	
+		}else if ($grupoTaxonomico == "plantas"){
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 5";	
+		}else if ($grupoTaxonomico == "hongos"){		
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 6";	
+		}else if ($grupoTaxonomico == "liquenes"){			
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 7";	
+		}else{
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id";	
+		}
+		
+		$connection=Yii::app()->db; 
+		$command=$connection->createCommand($SQL);
+		$rowCount=$command->execute(); // execute the non-query SQL
+		$dataReader=$command->query(); // execute a query SQL			  			
+		$rows=$dataReader->readAll();
+			
+		header('Content-type: application/json; charset=utf-8');
+		header('Vary: Accept-Encoding');
+			
+		echo $_GET['jsoncallback']."(".CJSON::encode($rows).")";
+
+		
+	}		
 	private function getUrlColection($urls){
 		if(is_array($urls)){
 			$urlP = Yii::app();
