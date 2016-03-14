@@ -37,7 +37,7 @@
 body {
 	font-size: 80%;
 	color: #333;
-	background: rgba(255, 251, 237, 0.5) url("../images/bg_ramas.png") repeat center center fixed !important;
+	background: #FFFCF5  !important;
 	font-family: 'Open sans', Helvetica, Verdana, Helvetica, Arial;
 	text-align: left;
 	padding: 0;
