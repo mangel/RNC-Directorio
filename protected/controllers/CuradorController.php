@@ -12,7 +12,7 @@ class CuradorController extends Controller{
 
 	public function actionEspecialista(){
 		$datos = array();
-		$model = curador::model();
+		$model = Curador::model();
         $modelCollections = Registros_update::model();
         $modelDepartamento=Department::model();
         $modelTipoColeccion=Tipo_Coleccion::model();
@@ -40,7 +40,7 @@ class CuradorController extends Controller{
 		));
 	}
 	public function actionEspecialistaDetail($id){
-		$model = curador::model();
+		$model = Curador::model();
         $modelCollections = Registros_update::model();
         $modelDepartamento=Department::model();
         $modelTipoColeccion=Tipo_Coleccion::model();
